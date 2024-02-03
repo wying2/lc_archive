@@ -1,12 +1,12 @@
 class Solution {
     public int rob(int[] nums) {
-        // if (nums.length == 1) return nums[0];
-        // if (nums.length == 2) return Math.max(nums[0], nums[1]);
-        // if (nums.length == 3) return Math.max(Math.max(nums[0], nums[1]), nums[2]);
-        if (nums.length <= 3) {
-            Arrays.sort(nums);
-            return nums[nums.length - 1];
-        }
+        if (nums.length == 1) return nums[0];
+        if (nums.length == 2) return Math.max(nums[0], nums[1]);
+        if (nums.length == 3) return Math.max(Math.max(nums[0], nums[1]), nums[2]);
+        // if (nums.length <= 3) {
+        //     Arrays.sort(nums);
+        //     return nums[nums.length - 1];
+        // }
         // int[] dp1 = new int[nums.length - 1];
         // int[] dp2 = new int[nums.length - 1];
         int dp10 = nums[0];
