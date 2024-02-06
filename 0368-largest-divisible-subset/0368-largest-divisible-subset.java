@@ -1,34 +1,25 @@
 class Solution {
-  public List<Integer> largestDivisibleSubset(int[] nums) {
-    // Test case with empty set.
-    int n = nums.length;
-    if (n == 0) return new ArrayList();
-        
-    // Container to keep the largest divisible subset
-    //   that ends with each of the nums.
-    List<ArrayList> EDS = new ArrayList();
-    for (int num : nums) EDS.add(new ArrayList());
-
-    /* Sort the original list in ascending order. */
-    Arrays.sort(nums);
-
-    /* Calculate all the values of EDS(X_i) */
-    for (int i = 0; i < n; ++i) {
-      List<Integer> maxSubset = new ArrayList();
-            
-      // Find the largest divisible subset of previous elements.
-      for (int k = 0; k < i; ++k) 
-        if (nums[i] % nums[k] == 0 && maxSubset.size() < EDS.get(k).size())
-          maxSubset = EDS.get(k);
-          
-      // Extend the found subset with the element itself.
-      EDS.get(i).addAll(maxSubset);
-      EDS.get(i).add(nums[i]);
+    public List<Integer> largestDivisibleSubset(int[] nums) {
+        int n = nums.length;
+        if (n == 0) return new ArrayList();
+        List<ArrayList<Integer>> dp = new ArrayList();
+        for (int i = 0; i < n; i ++) 
+            dp.add(new ArrayList());
+        Arrays.sort(nums);
+        for (int i = 0; i < n; i ++) {
+            ArrayList<Integer> tmp = new ArrayList();
+            for (int j = 0; j < i; j ++) {
+                if (nums[i] % nums[j] == 0 && tmp.size() < dp.get(j).size())
+                    tmp = dp.get(j);
+            }
+            dp.get(i).addAll(tmp);
+            dp.get(i).add(nums[i]);
+        }
+        List<Integer> ret = new ArrayList();
+        for (int k = 0; k < n; k ++) {
+            if (ret.size() < dp.get(k).size())
+                ret = dp.get(k);
+        }
+        return ret;
     }
-    /* Find the largest of EDS values  */
-    List<Integer> ret = new ArrayList();
-    for (int i = 0; i < n; ++i) 
-      if (ret.size() < EDS.get(i).size()) ret = EDS.get(i);
-    return ret;
-  }  
 }
