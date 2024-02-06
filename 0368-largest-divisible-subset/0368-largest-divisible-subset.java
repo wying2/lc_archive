@@ -11,7 +11,11 @@ class Solution {
             for (int j = 0; j < i; j ++) {
                 if (nums[i] % nums[j] == 0 && tmp.size() < dp.get(j).size())
                     tmp = dp.get(j);
+                    // note: tmp is pointing to the actual dp.get(j), instead of a new Arraylist
             }
+            // which means, if you first add the current element to tmp
+            // it would be added to dp.get(j) as well
+            // and when we try to get it for the next time, the list is not correct
             dp.get(i).addAll(tmp);
             dp.get(i).add(nums[i]);
         }
