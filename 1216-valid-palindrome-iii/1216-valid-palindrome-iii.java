@@ -17,9 +17,6 @@ class Solution {
                     dp[i][j] = Math.min(dp[i][j-1], dp[i-1][j]) + 1;
             }
         }
-        for (int[] it : dp) {
-            System.out.println(Arrays.toString(it));
-        }
         return dp[len][len] / 2 <= k ? true : false;
     }
 }
