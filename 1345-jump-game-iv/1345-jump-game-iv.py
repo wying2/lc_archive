@@ -1,46 +1,39 @@
-class Solution:
-    def minJumps(self, arr: List[int]) -> int:
+class Solution(object):
+    def minJumps(self, arr):
+        """
+        :type arr: List[int]
+        :rtype: int
+        """
         n = len(arr)
-        if n <= 1:
-            return 0
-
+        # build a graph (dictionary / hashmap)
         graph = {}
         for i in range(n):
             if arr[i] in graph:
                 graph[arr[i]].append(i)
             else:
                 graph[arr[i]] = [i]
-
-        curs = [0]  # store current layers
-        visited = {0}
+        
+        curr = [0]
+        visited = set()
+        visited.add(0)
         step = 0
-
-        # when current layer exists
-        while curs:
+        
+        while curr:
             nex = []
-
-            # iterate the layer
-            for node in curs:
-                # check if reached end
-                if node == n-1:
+            for node in curr:
+                if node == n - 1:
                     return step
-
-                # check same value
-                for child in graph[arr[node]]:
+                # check graph
+                for child in graph.get(arr[node]):
                     if child not in visited:
-                        visited.add(child)
                         nex.append(child)
-
-                # clear the list to prevent redundant search
-                graph[arr[node]].clear()
-
-                # check neighbors
-                for child in [node-1, node+1]:
-                    if 0 <= child < len(arr) and child not in visited:
                         visited.add(child)
-                        nex.append(child)
-
-            curs = nex
+                graph[arr[node]] = []
+                # check front back
+                for i in [node - 1, node + 1]:
+                    if 0 <= i < n and i not in visited:
+                        nex.append(i)
+                        visited.add(i)
             step += 1
-
-        return -1
+            curr = nex
+        return step
