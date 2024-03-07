@@ -10,7 +10,7 @@ class Solution:
             for K in range(min(i,k)):
                 if K == 0:
                     dp[K][i] = ave(0, i) 
-                else:
+                elif i > K:
                     for j in range(i):
                         dp[K][i]=max(dp[K-1][j]+ave(j,i),dp[K][i])
             # print(dp)
