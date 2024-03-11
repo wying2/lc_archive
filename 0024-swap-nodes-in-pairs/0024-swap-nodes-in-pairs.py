@@ -5,6 +5,16 @@
 #         self.next = next
 class Solution(object):
     
+    def recursive(self, head):
+        if not head or not head.next:
+            return head
+        left = head
+        right = head.next
+        nex = head.next.next
+        right.next = left
+        left.next = self.recursive(nex)
+        return right
+    
     def simulation(self, head):
         if not head:
             return None
@@ -28,6 +38,7 @@ class Solution(object):
         :type head: ListNode
         :rtype: ListNode
         """
-        return self.simulation(head)
+        # return self.simulation(head)
+        return self.recursive(head)
         
             
