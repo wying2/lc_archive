@@ -5,18 +5,9 @@ class Solution(object):
         :rtype: bool
         """
         seen = set()
-        summ = n
-        
-        while summ != 1:
-            n = summ
-            summ = 0
-            while n != 0:
-                # digit = n % 10
-                n, digit = divmod(n, 10)
-                summ += digit ** 2
-                # n = n // 10
-            if summ in seen:
+        while n != 1:
+            n = sum(int(i) ** 2 for i in str(n))
+            if n in seen:
                 return False
-            seen.add(summ)
-            
+            seen.add(n)
         return True
