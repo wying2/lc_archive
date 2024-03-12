@@ -11,9 +11,10 @@ class Solution(object):
             n = summ
             summ = 0
             while n != 0:
-                digit = n % 10
+                # digit = n % 10
+                n, digit = divmod(n, 10)
                 summ += digit ** 2
-                n = n // 10
+                # n = n // 10
             if summ in seen:
                 return False
             seen.add(summ)
