@@ -7,6 +7,7 @@ class Solution {
             if (nums[a] > 0 && nums[a] > target) return ans;
             if (a != 0 && nums[a] == nums[a-1]) continue;
             for (int b = a + 1; b < n - 2; b ++) {
+                // why this does not work??
                 // if (nums[a] + nums[b] > 0 && (nums[a] + nums[b]) > target) return ans;
                 if (b != a + 1 && nums[b] == nums[b-1]) continue;
                 int c = b + 1;
