@@ -2,7 +2,7 @@ class Solution {
     public int removeElement(int[] nums, int val) {
         int slow = 0;
         int fast = 0;
-        int ans = 0;
+        // int ans = 0;
         while (fast < nums.length) {
             while (fast < nums.length && nums[fast] == val) {
                 fast ++;
@@ -11,8 +11,8 @@ class Solution {
             nums[slow] = nums[fast];
             slow ++;
             fast ++;
-            ans ++;
+            // ans ++;
         }
-        return ans;
+        return slow;
     }
 }
