@@ -7,9 +7,9 @@ class Solution {
             if (stack.isEmpty() || c != stack.peek()) stack.push(c);
             else stack.pop();
         }
-        String res = "";
+        StringBuilder sb = new StringBuilder();
         while(!stack.isEmpty())
-            res = stack.pop() + res;
-        return res;
+            sb.append(stack.removeLast());
+        return sb.toString();
     }
 }
