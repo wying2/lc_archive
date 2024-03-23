@@ -14,10 +14,9 @@ class MyStack {
     
     public int pop() {
         int n = q.size() -1;
-        while (n >= 1) {
+        while (n-- > 0) {
             last = q.remove();
             q.add(last);
-            n --;
         }
         return q.remove();
     }
