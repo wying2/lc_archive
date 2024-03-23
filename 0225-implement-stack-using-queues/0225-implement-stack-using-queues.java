@@ -1,29 +1,25 @@
 class MyStack {
-    Queue<Integer> in;
-    Queue<Integer> out;
+    Queue<Integer> q;
     int last;
 
     public MyStack() {
-        this.in = new LinkedList<>();
-        this.out = new LinkedList<>();
+        this.q = new LinkedList<>();
         last = 0;
     }
     
     public void push(int x) {
-        this.in.add(x);
+        this.q.add(x);
         last = x;
     }
     
     public int pop() {
-        while(in.size() > 1) {
-            last = in.remove();
-            out.add(last);
+        int n = q.size() -1;
+        while (n >= 1) {
+            last = q.remove();
+            q.add(last);
+            n --;
         }
-            
-        int res = in.remove();
-        this.in = this.out;
-        this.out = new LinkedList<>();
-        return res;
+        return q.remove();
     }
     
     public int top() {
@@ -31,7 +27,7 @@ class MyStack {
     }
     
     public boolean empty() {
-        return in.isEmpty();
+        return q.isEmpty();
     }
 }
 
