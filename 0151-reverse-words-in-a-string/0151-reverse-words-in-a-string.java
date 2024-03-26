@@ -1,36 +1,41 @@
 class Solution {
     public String reverseWords(String s) {
-        char[] s_arr = s.toCharArray();
-        // char[] ans = new char[s.length()];
-        int l = 0;
-        int r = s_arr.length - 1;
-        reverse(s_arr, l, r);
-        int slow = 0;
-        for (int i = 0; i < s_arr.length; i ++) {
-            // remove space
-            if (s_arr[i] == ' ') {
-                continue;
+        char[] arr = s.toCharArray();
+        int n = s.length();
+        StringBuilder sb = new StringBuilder();
+        // for (int i = 0; i < n; i ++) {
+        //     System.out.println(arr[i] + ": " + (int)arr[i]);
+        // }
+        reverse(arr, 0, n-1);
+        int counter = 0;
+        for (int i = 0; i < n; i ++) {
+            System.out.println(arr[i]);
+            if (arr[i] == ' ') continue;
+            int end = i;
+            while (end < n && arr[end] != ' ') {
+                // System.out.println((int)arr[end]);
+                end ++;
             }
-            int start = i;
-            while (i < s_arr.length && s_arr[i] != ' ') {
+            reverse(arr, i, end-1);
+            while (i < end) {
+                sb.append(arr[i]);
                 i ++;
+                counter ++;
             }
-            reverse(s_arr, start, i-1);
-            for (int j = start; j < i; j ++) {
-                s_arr[slow++] = s_arr[j];
-                if (j == i-1 && slow < s_arr.length) {
-                    s_arr[slow++] = ' ';
-                }
-            }
+            sb.append(' ');
+            counter ++;
         }
-        return new String(s_arr, 0, (slow == s_arr.length) && (s_arr[slow - 1] != ' ') ? slow : slow - 1);
+        // System.out.println(arr);
+        return sb.substring(0, counter-1);
     }
-    
-    public void reverse (char[] s_arr, int start, int end) {
-        for (int l = start, r = end; l < r; l ++, r --) {
-            s_arr[l] ^= s_arr[r];
-            s_arr[r] ^= s_arr[l];
-            s_arr[l] ^= s_arr[r];
+    void reverse(char[] arr, int start, int end) {
+        while (start <= end) {
+            char tmp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = tmp;
+            start ++;
+            end --;
         }
+        // System.out.println(arr);
     }
 }
