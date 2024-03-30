@@ -24,9 +24,13 @@ class Solution {
             }
         }
         if (root.left != null) {
-            traversal(root.left, depth + 1);
+            // 回溯！
+            depth ++;
+            traversal(root.left, depth);
+            depth --;
         }
         if (root.right != null) {
+            // 隐藏的回溯
             traversal(root.right, depth + 1);
         }
         return;
