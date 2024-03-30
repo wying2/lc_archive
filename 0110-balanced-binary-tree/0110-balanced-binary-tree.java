@@ -25,7 +25,6 @@ class Solution {
     }
     
     public boolean isBalanced(TreeNode root) {
-        boolean res = findHeight(root) > -1 ? true : false;
-        return res;
+        return findHeight(root) != -1;
     }
 }
