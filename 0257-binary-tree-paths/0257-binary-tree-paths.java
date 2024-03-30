@@ -14,23 +14,24 @@
  * }
  */
 class Solution {
-    void findPath(TreeNode root, String path, List<String> res) {
+    void findPath(TreeNode root, ArrayList<Integer> path, List<String> res) {
         // path = path + "->" + String.valueOf(root.val);
-        if (root.left == null && root.right == null) 
-            res.add(path);
-        else if (root.left == null) {
-            path = path + "->" + String.valueOf(root.right.val);
-            findPath(root.right, path, res);
+        path.add(root.val);
+        if (root.left == null && root.right == null) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < path.size() - 1; i ++) {
+                sb.append(String.valueOf(path.get(i))).append("->");
+            }
+            sb.append(String.valueOf(path.get(path.size()-1)));
+            res.add(sb.toString());
         }
-        else if (root.right == null) {
-            path = path + "->" + String.valueOf(root.left.val);
+        if (root.left != null) {
             findPath(root.left, path, res);
+            path.remove(path.size()-1);
         }
-        else {
-            String path_l = path + "->" + String.valueOf(root.left.val);
-            findPath(root.left, path_l, res);
-            String path_r = path + "->" + String.valueOf(root.right.val);
-            findPath(root.right, path_r, res);
+        if (root.right != null) {
+            findPath(root.right, path, res);
+            path.remove(path.size()-1);
         }
         return;
     }
@@ -38,7 +39,7 @@ class Solution {
     public List<String> binaryTreePaths(TreeNode root) {
         List<String> res = new LinkedList();
         if (root != null) {
-            String path = String.valueOf(root.val);
+            ArrayList<Integer> path = new ArrayList();
             findPath(root, path, res);
         }
         return res;
