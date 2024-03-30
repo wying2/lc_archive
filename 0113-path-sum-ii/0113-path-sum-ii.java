@@ -22,10 +22,10 @@ class Solution {
         path.add(root.val);
         if (root.left == null && root.right == null) {
             if (sum == targetSum) {
-                ArrayList<Integer> path_copy = new ArrayList();
-                for (Integer i : path)
-                    path_copy.add(i);
-                paths.add(path_copy);
+                // ArrayList<Integer> path_copy = new ArrayList();
+                // for (Integer i : path)
+                //     path_copy.add(i);
+                paths.add(new ArrayList(path));
             }
             return;
         }
