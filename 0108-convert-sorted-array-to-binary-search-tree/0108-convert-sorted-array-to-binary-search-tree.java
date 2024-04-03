@@ -17,7 +17,7 @@ class Solution {
     
     TreeNode traversal(int left, int right, int[] nums) {
         if (left > right) return null;
-        int mid = (left + right) / 2;
+        int mid = left + ((right - left) / 2);
         TreeNode root = new TreeNode(nums[mid]);
         root.left = traversal(left, mid - 1, nums);
         root.right = traversal(mid + 1, right, nums);
