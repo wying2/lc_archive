@@ -11,8 +11,8 @@ class Solution {
             path.add(i);
             sum += i;
             backtrack(k, n, i + 1);
-            path.removeLast();
             sum -= i;
+            path.removeLast();
         }
     }
     public List<List<Integer>> combinationSum3(int k, int n) {
