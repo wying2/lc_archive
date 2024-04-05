@@ -7,7 +7,7 @@ class Solution {
             res.add(new LinkedList(path));
             return;
         }
-        for (int i = startInd; i <= Math.min(9, n - sum); i ++) {
+        for (int i = startInd; i <= 9; i ++) {
             path.add(i);
             sum += i;
             backtrack(k, n, i + 1);
