@@ -3,6 +3,7 @@ class Solution {
     LinkedList<Integer> path;
     int sum;
     void backtrack(int k, int n, int startInd) {
+        if (sum > n) return;
         if (sum == n && path.size() == k) {
             res.add(new LinkedList(path));
             return;
