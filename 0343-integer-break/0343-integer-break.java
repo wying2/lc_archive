@@ -6,7 +6,7 @@ class Solution {
             for (int j = 1; j <= i-j; j ++) {
                 dp[i] = Math.max(dp[i], Math.max(j*(i-j), j*dp[i-j]));
             }
-            System.out.println(Arrays.toString(dp));
+            // System.out.println(Arrays.toString(dp));
         }
         return dp[n];
     }
