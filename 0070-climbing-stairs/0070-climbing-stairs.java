@@ -1,16 +1,15 @@
 class Solution {
     public int climbStairs(int n) {
-        int[] dp = new int[3];
         if (n <= 2) return n;
-        for (int i = 1; i <= n; i ++) {
-            if (i <= 2) dp[i] = i;
-            else {
-                int sum = dp[1] + dp[2];
-                dp[1] = dp[2];
-                dp[2] = sum;
-            }
+        int[] dp = new int[2];
+        dp[0] = 1;
+        dp[1] = 2;
+        for (int i = 2; i < n; i ++) {
+            int sum = dp[0] + dp[1];
+            dp[0] = dp[1];
+            dp[1] = sum;
         }
-        return dp[2];
+        return dp[1];
     }
 }
 
