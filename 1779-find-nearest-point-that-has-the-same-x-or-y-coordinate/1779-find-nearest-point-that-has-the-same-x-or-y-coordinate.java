@@ -3,12 +3,11 @@ class Solution {
         int smallest = Integer.MAX_VALUE;
         int smallest_ind = -1;
         for (int i = points.length - 1; i >= 0; i --) {
-            if (points[i][0] == x || points[i][1] == y) {
-                int dist = Math.max(Math.abs(points[i][0] - x), Math.abs(points[i][1] - y));
-                if (dist <= smallest) {
-                    smallest = dist;
-                    smallest_ind = i;
-                }
+            int x_diff = Math.abs(points[i][0] - x);
+            int y_diff = Math.abs(points[i][1] - y);
+            if (x_diff * y_diff == 0 && Math.max(x_diff, y_diff) <= smallest) {
+                smallest = Math.max(x_diff, y_diff);
+                smallest_ind = i;
             }
         }
         return smallest_ind;
