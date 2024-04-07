@@ -1,11 +1,17 @@
 class Solution {
     public int maxProfitAssignment(int[] difficulty, int[] profit, int[] worker) {
-        int size = (int)Math.pow(10, 5) + 1;
-        int[] dp = new int[size];
+        int size = 0;
+        for (int i = 0; i < worker.length; i ++) {
+            size = Math.max(size, worker[i]);
+        }
+        for (int i = 0; i < difficulty.length; i ++) {
+            size = Math.max(size, difficulty[i]);
+        }
+        int[] dp = new int[size + 1];
         for (int i = 0; i < difficulty.length; i ++) {
             dp[difficulty[i]] = Math.max(dp[difficulty[i]], profit[i]);
         }
-        for (int i = 1; i < size; i ++) {
+        for (int i = 1; i < size + 1; i ++) {
             dp[i] = Math.max(dp[i-1], dp[i]);
         }
         int sum = 0;
