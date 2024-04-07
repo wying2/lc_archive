@@ -1,8 +1,9 @@
 class Solution {
+    private int[][] jobs;
     public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
         // sort jobs
         int len = startTime.length;
-        int[][] jobs = new int[len][3];
+        jobs = new int[len][3];
         for (int i = 0; i < len; i ++) {
             jobs[i] = new int[]{startTime[i], endTime[i], profit[i]};
         }
@@ -12,17 +13,29 @@ class Solution {
         // dp
         int[] dp = new int[len + 1];
         for (int i = 1; i <= len; i ++) {
-            int j;
-            for (j = Math.max(0, i-1); j >= 1; j --) {
-                if (jobs[j-1][1] <= jobs[i-1][0])
-                    break;
-            }
+            int j = binarySearch(i-1, jobs[i-1][0]);
+            // for (j = Math.max(0, i-1); j >= 1; j --) {
+            //     if (jobs[j-1][1] <= jobs[i-1][0])
+            //         break;
+            // }
             // System.out.println("i = " + Arrays.toString(jobs[i-1]));
             // System.out.println("j = " + dp[j]);
             dp[i] = Math.max(dp[i-1], dp[j] + jobs[i-1][2]);
             // System.out.println(Arrays.toString(dp));
         }
         return dp[len];
+    }
+    
+    private int binarySearch(int right, int target) {
+        int left = 0;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (jobs[mid][1] > target)
+                right = mid;
+            else
+                left = mid + 1;
+        }
+        return left;
     }
 }
 
