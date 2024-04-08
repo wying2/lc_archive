@@ -9,8 +9,8 @@ class Solution {
         System.out.println(Arrays.toString(hm));
         int res = 0;
         for (int j = 0; j < 26; j ++) {
-            res += Math.abs(hm[j]);
+            res += Math.max(0, hm[j]);
         }
-        return res / 2;
+        return res;
     }
 }
