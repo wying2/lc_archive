@@ -1,46 +1,37 @@
 class Solution {
-    private int[][] jobs;
     public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
-        // sort jobs
-        int len = startTime.length;
-        jobs = new int[len][3];
-        for (int i = 0; i < len; i ++) {
+        int n = startTime.length;
+        int[][] jobs = new int[n][3];
+        for (int i = 0; i < n; i ++) {
             jobs[i] = new int[]{startTime[i], endTime[i], profit[i]};
         }
         Arrays.sort(jobs, (a, b) -> (a[1] - b[1]));
-        // for (int i = 0; i < len; i ++) 
-        //     System.out.println(Arrays.toString(jobs[i]));
-        // dp
-        int[] dp = new int[len + 1];
-        for (int i = 1; i <= len; i ++) {
-            int j = binarySearch(i-1, jobs[i-1][0]);
-            // for (j = Math.max(0, i-1); j >= 1; j --) {
-            //     if (jobs[j-1][1] <= jobs[i-1][0])
-            //         break;
-            // }
-            // System.out.println("i = " + Arrays.toString(jobs[i-1]));
-            // System.out.println("j = " + dp[j]);
-            dp[i] = Math.max(dp[i-1], dp[j] + jobs[i-1][2]);
-            // System.out.println(Arrays.toString(dp));
+        int[] dp = new int[n+1];
+        for (int i = 1; i <= n; i ++) {
+            int k = binarySearch(jobs, i-1, jobs[i-1][0]);
+            dp[i] = Math.max(dp[i-1], dp[k] + jobs[i-1][2]);
         }
-        return dp[len];
+        return dp[n];
     }
-    
-    private int binarySearch(int right, int target) {
+    private int binarySearch(int[][] jobs, int right, int target) {
         int left = 0;
         while (left < right) {
             int mid = left + (right - left) / 2;
-            if (jobs[mid][1] > target)
-                right = mid;
-            else
+            if (jobs[mid][1] <= target)
                 left = mid + 1;
+            else
+                right = mid;
         }
         return left;
     }
 }
 
-
-// job: select, not select
-// dp[i]: max profit if select or not select (i-1)th
-// size: len(startTime)+1
-// dp[i] = max(dp[i-1], dp[k, where endtime[k] is smaller than starttime[i-1]] + profit[i-1])
+// jobs: starttime, endtime, profit
+// jobs[i] : select, not select
+// dp[i]: from in total of i jobs, the max profit
+// return dp[n]
+// dp size n+1
+// dp[i] = max(dp[i-1], dp[k] + profit[i-1])
+// k: the num of jobs, where the last job k-1 ends before i-1
+// dp[0] = 0
+// dp[1] = max(0, profit[i-1])
