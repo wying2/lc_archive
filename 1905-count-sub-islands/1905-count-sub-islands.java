@@ -3,16 +3,16 @@ class Solution {
     public int countSubIslands(int[][] grid1, int[][] grid2) {
         int m = grid1.length;
         int n = grid1[0].length;
-        int[][] visited = new int[m][n];
+        // int[][] visited = new int[m][n];
         int count = 0;
         for (int i = 0; i < m; i ++) {
             for (int j = 0; j < n; j ++) {
-                if (grid2[i][j] == 0 || visited[i][j] == 1)
+                if (grid2[i][j] == 0)
                     continue;
                 // System.out.println("i = " + i + " j = " + j);
                 // boolean tmp = bfs(visited, grid1, grid2, i, j);
                 // System.out.println("bfs = " + tmp);
-                boolean tmp = dfs(visited, grid1, grid2, i, j);
+                boolean tmp = dfs(grid1, grid2, i, j);
                 if (tmp) {
                     count += 1;
                 }
@@ -20,8 +20,8 @@ class Solution {
         }
         return count;
     }
-    private boolean dfs(int[][] visited, int[][] grid1, int[][] grid2, int i, int j) {
-        visited[i][j] = 1;
+    private boolean dfs(int[][] grid1, int[][] grid2, int i, int j) {
+        grid2[i][j] = 0;
         boolean contains_all = grid1[i][j] == 1;
         int m = grid1.length;
         int n = grid1[0].length;
@@ -30,10 +30,9 @@ class Solution {
             int nj = j + dir[1];
             if (ni < 0 || ni >= m ||
                 nj < 0 || nj >= n ||
-                visited[ni][nj] == 1 ||
                 grid2[ni][nj] == 0)
                 continue;
-            contains_all &= dfs(visited, grid1, grid2, ni, nj);
+            contains_all &= dfs(grid1, grid2, ni, nj);
         }
         return contains_all;
     }
