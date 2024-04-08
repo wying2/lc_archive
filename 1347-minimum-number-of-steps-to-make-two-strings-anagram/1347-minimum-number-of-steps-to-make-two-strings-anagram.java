@@ -6,7 +6,7 @@ class Solution {
             hm[s.charAt(i) - 'a'] ++;
             hm[t.charAt(i) - 'a'] --;
         }
-        System.out.println(Arrays.toString(hm));
+        // System.out.println(Arrays.toString(hm));
         int res = 0;
         for (int j = 0; j < 26; j ++) {
             res += Math.max(0, hm[j]);
