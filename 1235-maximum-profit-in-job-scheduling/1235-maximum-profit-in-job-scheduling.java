@@ -9,7 +9,7 @@ class Solution {
         int[] dp = new int[n+1];
         for (int i = 1; i <= n; i ++) {
             int k = binarySearch(jobs, i-1, jobs[i-1][0]);
-            dp[i] = Math.max(dp[i-1], dp[k] + jobs[i-1][2]);
+            dp[i] = Math.max(dp[i-1], dp[k+1] + jobs[i-1][2]);
         }
         return dp[n];
     }
@@ -22,7 +22,7 @@ class Solution {
             else
                 right = mid;
         }
-        return left;
+        return left - 1;
     }
 }
 
