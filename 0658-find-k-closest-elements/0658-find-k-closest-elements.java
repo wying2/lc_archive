@@ -3,10 +3,10 @@ class Solution {
         int x_right_ind = binarySearchLeft(arr, x);
         int left = x_right_ind-1;
         int right = x_right_ind;
-        System.out.println("left = " + left + " right = " + right);
+        // System.out.println("left = " + left + " right = " + right);
         List<Integer> res = new LinkedList();
         while (right - left - 1 < k) {
-            System.out.println("left = " + left + " right = " + right);
+            // System.out.println("left = " + left + " right = " + right);
             if (left <= -1) {
                 right ++;
                 continue;
@@ -21,7 +21,7 @@ class Solution {
                 right ++;
             }
         }
-        System.out.println("left = " + left + " right = " + right);
+        // System.out.println("left = " + left + " right = " + right);
         for (int i = left + 1; i < right; i ++) {
             res.add(arr[i]);
         }
