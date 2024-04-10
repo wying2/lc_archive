@@ -3,10 +3,11 @@ class Solution {
         Arrays.sort(products);
         // System.out.println(Arrays.toString(products));
         List<List<String>> result = new ArrayList<>();
+        int bsStart = 0;
         String prefix = "";
         for (char c : searchWord.toCharArray()) {
             prefix += c;
-            int start = binarySearchRight(products, prefix);
+            int start = binarySearchRight(products, prefix, bsStart);
             // System.out.println("start = " + start);
             List<String> found = new ArrayList();
             for (int i = start; i < Math.min(start + 3, products.length); i ++) {
@@ -15,12 +16,13 @@ class Solution {
                 found.add(products[i]);
             }
             result.add(found);
+            bsStart = start;
         }
         return result;
     }
     
-    private int binarySearchRight (String[] products, String target) {
-        int left = 0;
+    private int binarySearchRight (String[] products, String target, int bsStart) {
+        int left = bsStart;
         int right = products.length - 1;
         int ind = right;
         while (left <= right) {
