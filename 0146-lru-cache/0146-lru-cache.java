@@ -36,8 +36,7 @@ class LRUCache {
         if (!cache.containsKey(key))
             return -1;
         ListNode node = cache.get(key);
-        node.prev.next = node.next;
-        node.next.prev = node.prev;
+        remove(node);
         addToHead(node);
         return node.val;
     }
@@ -49,20 +48,24 @@ class LRUCache {
             ListNode hit = cache.get(key);
             hit.val = value;
             hit.key = key;
-            hit.prev.next = hit.next;
-            hit.next.prev = hit.prev;
+            remove(hit);
             addToHead(hit);
         } else {
             if (size == capacity) {
-                evictFromTail();
+                remove(tail.prev);
             }
             ListNode newNode = new ListNode(value, key);
             addToHead(newNode);
-            cache.put(key, newNode);
-            size ++;
         }
         // System.out.println("size = "+size+" capacity = "+capacity);
         // System.out.println(cache.toString());
+    }
+    
+    public void remove(ListNode hit) {
+        hit.prev.next = hit.next;
+        hit.next.prev = hit.prev;
+        cache.remove(hit.key);
+        size --;
     }
     
     private void addToHead(ListNode hit) {
@@ -71,6 +74,8 @@ class LRUCache {
         sec.prev = hit;
         hit.next = sec;
         hit.prev = head;
+        cache.put(hit.key, hit);
+        size ++;
     }
     
     private void evictFromTail() {
@@ -81,12 +86,3 @@ class LRUCache {
         size --;
     }
 }
-
-// HashMap
-
-/**
- * Your LRUCache object will be instantiated and called as such:
- * LRUCache obj = new LRUCache(capacity);
- * int param_1 = obj.get(key);
- * obj.put(key,value);
- */
