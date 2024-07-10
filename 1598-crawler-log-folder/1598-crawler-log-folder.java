@@ -4,9 +4,7 @@ class Solution {
         for (String log : logs) {
             if (log.equals("../")) {
                 layers = layers == 0? 0 : layers - 1;
-            } else if (log.equals("./")) {
-                
-            } else {
+            } else if (!log.equals("./")) {
                 layers += 1;
             }
         }
